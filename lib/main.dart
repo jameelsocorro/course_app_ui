@@ -1,3 +1,4 @@
+import 'package:course_app_ui/app_color.dart';
 import 'package:course_app_ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(            
         textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Avenir',
-              bodyColor: Color(0xFF0D1333),
+              bodyColor: AppColors.textColor[900],
             ),
       ),
       home: HomeScreen(),
