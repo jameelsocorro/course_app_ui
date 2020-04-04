@@ -1,5 +1,8 @@
 import 'package:course_app_ui/app_color.dart';
+import 'package:course_app_ui/screens/course_detail_screen.dart';
+import 'package:course_app_ui/screens/mock_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -67,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     final searchInput = Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(vertical: 24),
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(bottom: 24),
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: TextFormField(
         controller: TextEditingController(),
@@ -105,8 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     final categoryHeader = Container(
-      margin: EdgeInsets.only(top: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -114,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
             'Categories',
             style: TextStyle(
               fontSize: 18,
+              color: AppColors.textColor[900],
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -131,92 +134,131 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    final mockData = [
-      {
-        'category': 'Marketing',
-        'totalCourses': 17,
-        'backgroundImage': Positioned(
-          top: 0,
-          bottom: -100,
-          left: 0,
-          right: 0,          
-          child: Image.asset(
-            'assets/images/marketing_bg.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      },
-      {
-        'category': 'UX Design',
-        'totalCourses': 25,
-        'backgroundImage': Positioned(
-          top: 0,
-          bottom: -20,
-          left: 0,
-          right: -75,  
-          child: Image.asset(
-            'assets/images/ux_design_bg.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      },
-      {
-        'category': 'Photography',
-        'totalCourses': 13,
-        'backgroundImage': Positioned(
-          top: 0,
-          bottom: -80,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            'assets/images/photography_bg.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      },
-      {
-        'category': 'Business',
-        'totalCourses': 20,
-        'backgroundImage': Positioned(
-          top: 0,
-          bottom: -100,
-          left: 0,
-          right: -75,
-          child: Image.asset(
-            'assets/images/business_bg.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      },
-    ];
+    final categoryCards = SliverStaggeredGrid.countBuilder(
+      mainAxisSpacing: 16,
+      crossAxisCount: 2,
+      crossAxisSpacing: 16,
+      itemCount: categories.length,
+      staggeredTileBuilder: (int index) =>
+          StaggeredTile.extent(1, index == 1 || index == 4 ? 250 : 200),
+      itemBuilder: (BuildContext context, int index) {
+        final Map<String, Object> item = categories[index];
+        final Map<String, Object> image = item['image'];
+        final Map<String, Object> thumnail = image['thumbnail'];
 
-    final categoryCards = Expanded(
-      child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        padding: EdgeInsets.all(16),
-        children: List.generate(
-          mockData.length,
-          (index) {
-            return Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+        final background = Positioned(
+          top: thumnail['top'],
+          bottom: thumnail['bottom'],
+          left: thumnail['left'],
+          right: thumnail['right'],
+          child: Hero(
+            tag: item['tag'],
+            child: Image.asset(
+              image['src'],
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+
+        final cardContent = Container(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                item['category'],
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textColor[900],
+                ),
               ),
-              child: Container(
-                height: 300,
-                width: 40,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Stack(
-                    children: <Widget>[mockData[index]['backgroundImage']],
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                child: Text(
+                  '${item['totalCourses']} Courses',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textColor[400],
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ],
+          ),
+        );
+
+        return Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.cardColor[image['colorIndex']],
+              borderRadius: BorderRadius.circular(16),
+            ),
+            margin: EdgeInsets.only(
+              right: index.isOdd ? 16 : 0,
+              left: index.isEven ? 16 : 0,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CourseDetailScreen(
+                        tag: item['tag'],
+                        image: image,
+                        backgroundColor:
+                            AppColors.cardColor[image['colorIndex']],
+                      ),
+                    ),
+                  );
+                },
+                child: Stack(
+                  children: <Widget>[
+                    background,
+                    cardContent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    final customScrollView = Expanded(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 108,
+            backgroundColor: Colors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              background: subHeader,
+            ),
+          ),
+          SliverSafeArea(
+            sliver: SliverAppBar(
+              backgroundColor: Colors.white,
+              titleSpacing: 0,
+              pinned: true,
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(72),
+                child: Column(
+                  children: <Widget>[
+                    searchInput,
+                    categoryHeader,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          categoryCards,
+        ],
       ),
     );
 
@@ -234,10 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           appHeader,
-          subHeader,
-          searchInput,
-          categoryHeader,
-          categoryCards,
+          customScrollView,
         ],
       ),
     );

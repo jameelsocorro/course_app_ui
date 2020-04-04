@@ -11,9 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(            
         textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Avenir',
+              fontFamily: 'Avenir',              
               bodyColor: AppColors.textColor[900],
             ),
       ),
