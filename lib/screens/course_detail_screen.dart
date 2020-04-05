@@ -1,5 +1,6 @@
 import 'package:course_app_ui/app_color.dart';
 import 'package:course_app_ui/screens/mock_data.dart';
+import 'package:course_app_ui/widgets/tag_clipper.dart';
 import 'package:flutter/material.dart';
 
 class CourseDetailScreen extends StatelessWidget {
@@ -68,7 +69,7 @@ class CourseDetailScreen extends StatelessWidget {
         'Course Content',
         style: TextStyle(
           fontSize: 16,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w900,
         ),
       ),
     );
@@ -106,7 +107,7 @@ class CourseDetailScreen extends StatelessWidget {
                   counter,
                   style: TextStyle(
                     fontSize: 26,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w900,
                     color: AppColors.textColor[200],
                   ),
                 ),
@@ -131,7 +132,7 @@ class CourseDetailScreen extends StatelessWidget {
                           courseContentData[index]['title'],
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ],
@@ -251,12 +252,116 @@ class CourseDetailScreen extends StatelessWidget {
       ),
     );
 
+    final header = Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 8),
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 16),
+            child: ClipPath(
+              clipper: TagClipper(),
+              child: Container(
+                padding: EdgeInsets.fromLTRB(6, 6, 12, 4),
+                color: AppColors.yellow,
+                child: Text(
+                  'BESTSELLER',
+                  style: TextStyle(
+                    fontSize: 8,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 16),
+            child: Text(
+              'Design Thinking',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Image.asset(
+                'assets/icons/user.png',
+                width: 14,
+                height: 14,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 8, right: 16),
+                child: Text(
+                  '${course['students']}k',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textColor[500],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Image.asset(
+                'assets/icons/star.png',
+                width: 14,
+                height: 14,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 8, right: 16),
+                child: Text(
+                  '${course['rate']}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textColor[500],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 32),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(right: 8),
+                  child: Text(
+                    '\$${course['price']}',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '\$${course['originalPrice']}',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.lineThrough,
+                      color: AppColors.textColor[500],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+
     return Scaffold(
       backgroundColor: this.backgroundColor,
       appBar: appBar,
       body: Stack(
         children: <Widget>[
           background,
+          header,
           courseContent,
           courseFooter,
         ],

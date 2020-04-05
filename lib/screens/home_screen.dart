@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'Hey Alex,',
               style: TextStyle(
                 fontSize: 28,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w900,
               ),
             ),
           ),
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 18,
               color: AppColors.textColor[900],
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w900,
             ),
           ),
           InkWell(
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 item['category'],
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
                   color: AppColors.textColor[900],
                 ),
               ),

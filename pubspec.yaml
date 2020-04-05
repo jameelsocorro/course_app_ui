@@ -71,9 +71,18 @@ flutter:
   fonts:
     - family: Avenir
       fonts:
-        - asset: assets/fonts/AvenirLT-Roman.ttf          
+        - asset: assets/fonts/Avenir-LT-85-Heavy.ttf
+        - asset: assets/fonts/AvenirLT-Black.ttf        
+        - asset: assets/fonts/AvenirLT-BlackOblique.ttf        
+        - asset: assets/fonts/AvenirLT-Book.ttf        
+        - asset: assets/fonts/AvenirLT-BookOblique.ttf        
+        - asset: assets/fonts/AvenirLT-Heavy.ttf
+        - asset: assets/fonts/AvenirLT-HeavyOblique.ttf                            
         - asset: assets/fonts/AvenirLT-Medium.ttf          
-        - asset: assets/fonts/AvenirLT-Heavy.ttf        
+        - asset: assets/fonts/AvenirLT-MediumOblique.ttf    
+        - asset: assets/fonts/AvenirLT-Oblique.ttf                    
+        - asset: assets/fonts/AvenirLT-Roman.ttf      
+        
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
