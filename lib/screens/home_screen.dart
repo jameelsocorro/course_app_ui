@@ -1,6 +1,7 @@
-import 'package:course_app_ui/app_color.dart';
+import 'package:course_app_ui/utils/app_color.dart';
 import 'package:course_app_ui/screens/course_detail_screen.dart';
-import 'package:course_app_ui/screens/mock_data.dart';
+import 'package:course_app_ui/data/mock_data.dart';
+import 'package:course_app_ui/widgets/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -10,37 +11,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final greyColor = Color(0xFF61688B);
-
-  @override
-  Widget build(BuildContext context) {
-    final appHeader = Container(
+  _buildHeader() {
+    return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 24,
       ),
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            InkWell(
-              child: Image.asset(
-                'assets/icons/menu.png',
-                height: 10,
-                width: 16,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            onTap: () {},
+            child: Image.asset(
+              'assets/icons/menu.png',
+              height: 10,
+              width: 16,
             ),
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: AssetImage('assets/images/avatar.png'),
-            ),
-          ],
-        ),
+          ),
+          CircleAvatar(
+            radius: 16,
+            backgroundImage: AssetImage('assets/images/avatar.png'),
+          ),
+        ],
       ),
     );
+  }
 
-    final subHeader = Container(
-      padding: EdgeInsets.symmetric(
+  _buildSubHeader(context) {
+    return Container(
+      margin: EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 8,
       ),
@@ -51,10 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.only(bottom: 16),
             child: Text(
               'Hey Alex,',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w900,
-              ),
+              style: Theme.of(context).textTheme.headline5.copyWith(
+                    fontSize: 28,
+                  ),
             ),
           ),
           Text(
@@ -68,57 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
 
-    final searchInput = Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(bottom: 24),
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: TextFormField(
-        controller: TextEditingController(),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(top: 16),
-          filled: true,
-          fillColor: AppColors.backgroundColor[2],
-          border: InputBorder.none,
-          hintText: 'Search for anything',
-          hintStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textColor[300],
-          ),
-          prefixIcon: Container(
-            margin: EdgeInsets.only(left: 8),
-            padding: EdgeInsets.symmetric(vertical: 16),
-            child: Image.asset(
-              'assets/icons/search.png',
-              height: 10,
-              width: 16,
-            ),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(40),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(40),
-          ),
-        ),
-      ),
-    );
-
-    final categoryHeader = Container(
+  _buildCategoryHeader(context) {
+    return Padding(
       padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
             'Categories',
-            style: TextStyle(
-              fontSize: 18,
-              color: AppColors.textColor[900],
-              fontWeight: FontWeight.w900,
-            ),
+            style: Theme.of(context).textTheme.headline5.copyWith(
+                  fontSize: 18,
+                ),
           ),
           InkWell(
             child: Text(
@@ -133,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
 
+  _buildContent() {
     final categoryCards = SliverStaggeredGrid.countBuilder(
       mainAxisSpacing: 16,
       crossAxisCount: 2,
@@ -231,14 +193,14 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
 
-    final customScrollView = Expanded(
+    return Expanded(
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 108,
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
-              background: subHeader,
+              background: _buildSubHeader(context),
             ),
           ),
           SliverSafeArea(
@@ -250,8 +212,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 preferredSize: Size.fromHeight(72),
                 child: Column(
                   children: <Widget>[
-                    searchInput,
-                    categoryHeader,
+                    SearchInput(),
+                    _buildCategoryHeader(context),
                   ],
                 ),
               ),
@@ -261,7 +223,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -275,8 +240,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          appHeader,
-          customScrollView,
+          _buildHeader(),
+          _buildContent(),
         ],
       ),
     );

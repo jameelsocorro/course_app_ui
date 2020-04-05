@@ -1,5 +1,5 @@
-import 'package:course_app_ui/app_color.dart';
-import 'package:course_app_ui/screens/mock_data.dart';
+import 'package:course_app_ui/utils/app_color.dart';
+import 'package:course_app_ui/data/mock_data.dart';
 import 'package:course_app_ui/widgets/tag_clipper.dart';
 import 'package:flutter/material.dart';
 

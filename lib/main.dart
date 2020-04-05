@@ -1,4 +1,4 @@
-import 'package:course_app_ui/app_color.dart';
+import 'package:course_app_ui/utils/app_color.dart';
 import 'package:course_app_ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +12,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(            
-        textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Avenir',              
-              bodyColor: AppColors.textColor[900],
-            ),
+      theme: ThemeData(
+        fontFamily: 'Avenir',
+        textTheme: TextTheme(
+          headline5: TextStyle(            
+            fontWeight: FontWeight.w900,
+            color: AppColors.textColor[900],
+          ),
+          headline6: TextStyle(            
+            fontWeight: FontWeight.bold,
+            color: AppColors.textColor[900],
+          ),
+          bodyText2: TextStyle(            
+            fontWeight: FontWeight.bold,
+            color: AppColors.textColor[900],
+          ),
+        ),
       ),
       home: HomeScreen(),
     );
