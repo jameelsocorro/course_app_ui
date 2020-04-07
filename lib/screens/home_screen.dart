@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: AppColors.textColor[500],
+              color: AppColor.textColor[500],
             ),
           ),
         ],
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: AppColors.blue,
+                color: AppColor.blue,
               ),
             ),
           ),
@@ -104,19 +104,17 @@ class _HomeScreenState extends State<HomeScreen> {
       staggeredTileBuilder: (int index) =>
           StaggeredTile.extent(1, index == 1 || index == 4 ? 250 : 200),
       itemBuilder: (BuildContext context, int index) {
-        final Map<String, Object> item = categories[index];
-        final Map<String, Object> image = item['image'];
-        final Map<String, Object> thumnail = image['thumbnail'];
+        final category = categories[index];
 
         final background = Positioned(
-          top: thumnail['top'],
-          bottom: thumnail['bottom'],
-          left: thumnail['left'],
-          right: thumnail['right'],
+          top: category.image.offset.top,
+          bottom: category.image.offset.bottom,
+          left: category.image.offset.left,
+          right: category.image.offset.right,
           child: Hero(
-            tag: item['tag'],
+            tag: category.tag,
             child: Image.asset(
-              image['src'],
+              category.image.src,
               fit: BoxFit.cover,
             ),
           ),
@@ -128,21 +126,21 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                item['category'],
+                category.title,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w900,
-                  color: AppColors.textColor[900],
+                  color: AppColor.textColor[900],
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 8),
                 child: Text(
-                  '${item['totalCourses']} Courses',
+                  '${category.totalTopics} Topics',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textColor[400],
+                    color: AppColor.textColor[400],
                   ),
                 ),
               ),
@@ -150,42 +148,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
 
-        return Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
+        return Container(
+          decoration: BoxDecoration(
+            color: category.image.backgroundColor,
+            borderRadius: BorderRadius.circular(16),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.cardColor[image['colorIndex']],
-              borderRadius: BorderRadius.circular(16),
-            ),
-            margin: EdgeInsets.only(
-              right: index.isOdd ? 16 : 0,
-              left: index.isEven ? 16 : 0,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => CourseDetailScreen(
-                        tag: item['tag'],
-                        image: image,
-                        backgroundColor:
-                            AppColors.cardColor[image['colorIndex']],
-                      ),
+          margin: EdgeInsets.only(
+            right: index.isOdd ? 16 : 0,
+            left: index.isEven ? 16 : 0,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => CourseDetailScreen(
+                      categoryDetail: categoryDetails[category.tag],
                     ),
-                  );
-                },
-                child: Stack(
-                  children: <Widget>[
-                    background,
-                    cardContent,
-                  ],
-                ),
+                  ),
+                );
+              },
+              child: Stack(
+                children: <Widget>[
+                  background,
+                  cardContent,
+                ],
               ),
             ),
           ),

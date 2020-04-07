@@ -1,35 +1,29 @@
+import 'package:course_app_ui/model/category_detail.dart';
 import 'package:course_app_ui/utils/app_color.dart';
 import 'package:course_app_ui/data/mock_data.dart';
 import 'package:course_app_ui/widgets/tag_clipper.dart';
 import 'package:flutter/material.dart';
 
 class CourseDetailScreen extends StatelessWidget {
-  final String tag;
-  final Map<String, Object> image;
-  final Color backgroundColor;
+  final CategoryDetail categoryDetail;  
 
   CourseDetailScreen({
     Key key,
-    this.tag,
-    this.image,
-    this.backgroundColor,
+    this.categoryDetail,    
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final Map<String, Object> detail = image['detail'];
-    final Map<String, Object> course = courses[tag];
-    final List<Map<String, Object>> courseContentData = course['contents'];
+  Widget build(BuildContext context) {    
 
     final background = Positioned(
-      top: detail['top'],
-      bottom: detail['bottom'],
-      left: detail['left'],
-      right: detail['right'],
+      top: categoryDetail.image.offset.top,
+      bottom: categoryDetail.image.offset.bottom,
+      left: categoryDetail.image.offset.left,
+      right: categoryDetail.image.offset.right,
       child: Hero(
-        tag: tag,
+        tag: categoryDetail.tag,
         child: Image.asset(
-          this.image['src'],
+          categoryDetail.image.src,
           fit: BoxFit.contain,
         ),
       ),
@@ -37,7 +31,7 @@ class CourseDetailScreen extends StatelessWidget {
 
     final appBar = AppBar(
       elevation: 0,
-      backgroundColor: this.backgroundColor,
+      backgroundColor: categoryDetail.image.backgroundColor,
       automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +70,7 @@ class CourseDetailScreen extends StatelessWidget {
 
     final couseContentItems = Expanded(
       child: ListView.builder(
-        itemCount: courseContentData.length,
+        itemCount: categoryDetail.contents.length,
         itemBuilder: (BuildContext builder, index) {
           final counter = index <= 10
               ? (index + 1).toString().padLeft(2, '0')
@@ -87,7 +81,7 @@ class CourseDetailScreen extends StatelessWidget {
             width: 40,
             child: FlatButton(
               onPressed: () {},
-              color: AppColors.green,
+              color: AppColor.green,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
@@ -108,7 +102,7 @@ class CourseDetailScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
-                    color: AppColors.textColor[200],
+                    color: AppColor.textColor[200],
                   ),
                 ),
                 Expanded(
@@ -120,16 +114,16 @@ class CourseDetailScreen extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: 8),
                           child: Text(
-                            courseContentData[index]['duration'],
+                            categoryDetail.contents[index].duration,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.textColor[300],
+                              color: AppColor.textColor[300],
                             ),
                           ),
                         ),
                         Text(
-                          courseContentData[index]['title'],
+                          categoryDetail.contents[index].title,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w900,
@@ -139,7 +133,7 @@ class CourseDetailScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                (courseContentData[index]['done'])
+                (categoryDetail.contents[index].done)
                     ? playButton
                     : Opacity(
                         opacity: 0.3,
@@ -182,7 +176,7 @@ class CourseDetailScreen extends StatelessWidget {
       margin: EdgeInsets.only(right: 16),
       child: FlatButton(
         onPressed: () {},
-        color: AppColors.pink,
+        color: AppColor.pink,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
@@ -199,7 +193,7 @@ class CourseDetailScreen extends StatelessWidget {
         height: 50,
         child: FlatButton(
           onPressed: () {},
-          color: AppColors.blue,
+          color: AppColor.blue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -265,7 +259,7 @@ class CourseDetailScreen extends StatelessWidget {
               clipper: TagClipper(),
               child: Container(
                 padding: EdgeInsets.fromLTRB(6, 6, 12, 4),
-                color: AppColors.yellow,
+                color: AppColor.yellow,
                 child: Text(
                   'BESTSELLER',
                   style: TextStyle(
@@ -297,10 +291,10 @@ class CourseDetailScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 8, right: 16),
                 child: Text(
-                  '${course['students']}k',
+                  '${categoryDetail.students}k',
                   style: TextStyle(
                     fontSize: 12,
-                    color: AppColors.textColor[500],
+                    color: AppColor.textColor[500],
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -313,11 +307,11 @@ class CourseDetailScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 8, right: 16),
                 child: Text(
-                  '${course['rate']}',
+                  '${categoryDetail.rating}',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textColor[500],
+                    color: AppColor.textColor[500],
                   ),
                 ),
               ),
@@ -330,7 +324,7 @@ class CourseDetailScreen extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(right: 8),
                   child: Text(
-                    '\$${course['price']}',
+                    '\$${categoryDetail.price}',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
@@ -339,12 +333,12 @@ class CourseDetailScreen extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    '\$${course['originalPrice']}',
+                    '\$${categoryDetail.originalPrice}',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.lineThrough,
-                      color: AppColors.textColor[500],
+                      color: AppColor.textColor[500],
                     ),
                   ),
                 ),
@@ -356,7 +350,7 @@ class CourseDetailScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: this.backgroundColor,
+      backgroundColor: categoryDetail.image.backgroundColor,
       appBar: appBar,
       body: Stack(
         children: <Widget>[

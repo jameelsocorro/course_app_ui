@@ -13,13 +13,13 @@ class SearchInput extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(top: 16),
           filled: true,
-          fillColor: AppColors.backgroundColor[2],
+          fillColor: AppColor.backgroundColor[2],
           border: InputBorder.none,
           hintText: 'Search for anything',
           hintStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: AppColors.textColor[300],
+            color: AppColor.textColor[300],
           ),
           prefixIcon: Container(
             margin: EdgeInsets.only(left: 8),

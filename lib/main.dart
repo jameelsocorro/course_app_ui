@@ -17,15 +17,15 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           headline5: TextStyle(            
             fontWeight: FontWeight.w900,
-            color: AppColors.textColor[900],
+            color: AppColor.textColor[900],
           ),
           headline6: TextStyle(            
             fontWeight: FontWeight.bold,
-            color: AppColors.textColor[900],
+            color: AppColor.textColor[900],
           ),
           bodyText2: TextStyle(            
             fontWeight: FontWeight.bold,
-            color: AppColors.textColor[900],
+            color: AppColor.textColor[900],
           ),
         ),
       ),

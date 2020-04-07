@@ -1,201 +1,199 @@
+import 'package:course_app_ui/model/category.dart';
+import 'package:course_app_ui/model/category_content.dart';
+import 'package:course_app_ui/model/category_detail.dart';
+import 'package:course_app_ui/model/category_image.dart';
+import 'package:course_app_ui/model/category_image_offset.dart';
+import 'package:course_app_ui/utils/app_color.dart';
+
 final categories = [
-  {
-    'category': 'Marketing',
-    'totalCourses': 17,
-    'tag': 'marketing',
-    'image': {
-      'thumbnail': {
-        'top': -20.00,
-        'bottom': -120.00,
-        'left': 0.00,
-        'right': -50.00,
-      },
-      'detail': {
-        'top': 0.00,
-        'bottom': 0.00,
-        'left': 0.00,
-        'right': 0.00,
-      },
-      'src': 'assets/images/marketing_bg.png',
-      'colorIndex': 1,
-    },
-  },
-  {
-    'category': 'UX Design',
-    'totalCourses': 25,
-    'tag': 'ux_design',
-    'image': {
-      'thumbnail': {
-        'top': 0.00,
-        'bottom': -50.00,
-        'left': 0.00,
-        'right': -60.00,
-      },
-      'detail': {
-        'top': 0.00,
-        'bottom': null,
-        'left': 120.00,
-        'right': -120.00,
-      },
-      'src': 'assets/images/ux_design_bg.png',
-      'colorIndex': 2,
-    },
-  },
-  {
-    'category': 'Photography',
-    'totalCourses': 13,
-    'tag': 'photography',
-    'image': {
-      'thumbnail': {
-        'top': 30.00,
-        'bottom': -80.00,
-        'left': 0.00,
-        'right': -10.00,
-      },
-      'detail': {
-        'top': 40.00,
-        'bottom': null,
-        'left': 50.00,
-        'right': -50.00,
-      },
-      'src': 'assets/images/photography_bg.png',
-      'colorIndex': 3,
-    },
-  },
-  {
-    'category': 'Business',
-    'totalCourses': 20,
-    'tag': 'business',
-    'image': {
-      'thumbnail': {
-        'top': 0.00,
-        'bottom': -100.00,
-        'left': 0.00,
-        'right': -75.00,
-      },
-      'detail': {
-        'top': 0.00,
-        'bottom': null,
-        'left': 120.00,
-        'right': -120.00,
-      },
-      'src': 'assets/images/business_bg.png',
-      'colorIndex': 4,
-    },
-  },
-  {
-    'category': 'Web Design',
-    'totalCourses': 33,
-    'tag': 'web_design',
-    'image': {
-      'thumbnail': {
-        'top': 0.00,
-        'bottom': -50.00,
-        'left': 0.00,
-        'right': -60.00,
-      },
-      'detail': {
-        'top': 0.00,
-        'bottom': null,
-        'left': 120.00,
-        'right': -120.00,
-      },
-      'src': 'assets/images/ux_design_bg.png',
-      'colorIndex': 2,
-    },
-  },
-  {
-    'category': 'Video Editing',
-    'totalCourses': 19,
-    'tag': 'video_editing',
-    'image': {
-      'thumbnail': {
-        'top': 30.00,
-        'bottom': -80.00,
-        'left': 0.00,
-        'right': -10.00,
-      },
-      'detail': {
-        'top': 40.00,
-        'bottom': null,
-        'left': 50.00,
-        'right': -50.00,
-      },
-      'src': 'assets/images/photography_bg.png',
-      'colorIndex': 3,
-    },
-  },
+  Category(
+    tag: 'marketing',
+    title: 'Marketing',
+    totalTopics: 17,
+    image: CategoryImage(
+      src: 'assets/images/marketing_bg.png',
+      backgroundColor: AppColor.cardColor[1],
+      offset: CategoryImageOffset(
+        top: -20,
+        bottom: -120,
+        left: 0,
+        right: -50,
+      ),
+    ),
+  ),
+  Category(
+    tag: 'ux_design',
+    title: 'UX Design',
+    totalTopics: 25,
+    image: CategoryImage(
+      src: 'assets/images/ux_design_bg.png',
+      backgroundColor: AppColor.cardColor[2],
+      offset: CategoryImageOffset(
+        top: 0,
+        bottom: -50,
+        left: 0,
+        right: -60,
+      ),
+    ),
+  ),
+  Category(
+    tag: 'photography',
+    title: 'Photography',
+    totalTopics: 13,
+    image: CategoryImage(
+      src: 'assets/images/photography_bg.png',
+      backgroundColor: AppColor.cardColor[3],
+      offset: CategoryImageOffset(
+        top: 30,
+        bottom: -80,
+        left: 0,
+        right: -10,
+      ),
+    ),
+  ),
+  Category(
+    tag: 'business',
+    title: 'Business',
+    totalTopics: 20,
+    image: CategoryImage(
+      src: 'assets/images/business_bg.png',
+      backgroundColor: AppColor.cardColor[4],
+      offset: CategoryImageOffset(
+        top: 0,
+        bottom: -100,
+        left: 0,
+        right: -75,
+      ),
+    ),
+  ),
+  Category(
+    tag: 'web_design',
+    title: 'Web Design',
+    totalTopics: 25,
+    image: CategoryImage(
+      src: 'assets/images/ux_design_bg.png',
+      backgroundColor: AppColor.cardColor[2],
+      offset: CategoryImageOffset(
+        top: 0,
+        bottom: -50,
+        left: 0,
+        right: -60,
+      ),
+    ),
+  ),
+  Category(
+    tag: 'video_editing',
+    title: 'Video Editing',
+    totalTopics: 19,
+    image: CategoryImage(
+      src: 'assets/images/photography_bg.png',
+      backgroundColor: AppColor.cardColor[3],
+      offset: CategoryImageOffset(
+        top: 30,
+        bottom: -80,
+        left: 0,
+        right: -10,
+      ),
+    ),
+  ),
 ];
 
-final courses = {
-  'marketing': {
-    'title': 'Marketing',
-    'students': 18,
-    'rate': 4.8,
-    'price': 30,
-    'bestSeller': false,
-    'originalPrice': 60,
-    'contents': [
-      {
-        'duration': '5:00 mins',
-        'title': 'Welcome to the Course',
-        'done': true,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'Marketing Intro',
-        'done': false,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'Marketing Process',
-        'done': true,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'Customer Perspective',
-        'done': false,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'How to Market your Product',
-        'done': false,
-      }
+final categoryDetails = {
+  'marketing': CategoryDetail(
+    tag: 'video_editing',
+    title: 'Video Editing',
+    students: 19,
+    rating: 4.9,
+    price: 30,
+    originalPrice: 60,
+    bestSeller: false,
+    image: CategoryImage(
+      src: 'assets/images/marketing_bg.png',
+      backgroundColor: AppColor.cardColor[1],
+      offset: CategoryImageOffset(
+        top: -20,
+        bottom: -120,
+        left: 0,
+        right: -50,
+      ),
+    ),
+    contents: [
+      CategoryContent(
+        title: 'Welcome to the Course',
+        duration: '5:00 mins',
+        done: true,
+      ),
+      CategoryContent(
+        title: 'Marketing Intro',
+        duration: '5:35 mins',
+        done: false,
+      ),
+      CategoryContent(
+        title: 'Marketing Process',
+        duration: '10:00 mins',
+        done: false,
+      ),
+      CategoryContent(
+        title: 'Customer Perspective',
+        duration: '5:00 mins',
+        done: true,
+      ),
+      CategoryContent(
+        title: 'How to Market your Product',
+        duration: '5:00 mins',
+        done: true,
+      )
     ],
-  },
-  'ux_design': {
-    'title': 'UX Design',
-    'students': 20,
-    'rate': 4.9,
-    'price': 50,
-    'bestSeller': true,
-    'originalPrice': 70,
-    'contents': [
-      {
-        'duration': '5:00 mins',
-        'title': 'Welcome to the Course',
-        'done': true,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'Design Thinking Intro',
-        'done': false,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'Design Thinking Process',
-        'done': true,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'Customer Perspective',
-        'done': false,
-      },
-      {
-        'duration': '5:35 mins',
-        'title': 'User Research',
-        'done': false,
-      }
+  ),
+  'ux_design': CategoryDetail(
+    tag: 'ux_design',
+    title: 'UX Design',
+    students: 20,
+    rating: 4.9,
+    price: 50,
+    originalPrice: 70,
+    bestSeller: true,
+    image: CategoryImage(
+      src: 'assets/images/ux_design_bg.png',
+      backgroundColor: AppColor.cardColor[1],
+      offset: CategoryImageOffset(
+        top: -20,
+        bottom: -120,
+        left: 0,
+        right: -50,
+      ),
+    ),
+    contents: [
+      CategoryContent(
+        title: 'Welcome to the Course',
+        duration: '5:00 mins',
+        done: true,
+      ),
+      CategoryContent(
+        title: 'Design Thinking Intro',
+        duration: '5:35 mins',
+        done: false,
+      ),
+      CategoryContent(
+        title: 'Design Thinking Intro',
+        duration: '10:00 mins',
+        done: false,
+      ),
+      CategoryContent(
+        title: 'Design Thinking Process',
+        duration: '5:00 mins',
+        done: true,
+      ),
+      CategoryContent(
+        title: 'Customer Perspective',
+        duration: '5:00 mins',
+        done: true,
+      ),
+      CategoryContent(
+        title: 'User Research',
+        duration: '5:00 mins',
+        done: true,
+      ),
     ],
-  }
+  ),
 };
