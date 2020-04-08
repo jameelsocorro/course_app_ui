@@ -157,10 +157,10 @@ final categoryDetails = {
       src: 'assets/images/ux_design_bg.png',
       backgroundColor: AppColor.cardColor[1],
       offset: CategoryImageOffset(
-        top: -20,
-        bottom: -120,
-        left: 0,
-        right: -50,
+        top: -70,
+        bottom: null,
+        left: 120,
+        right: -120,
       ),
     ),
     contents: [

@@ -1,62 +1,59 @@
 import 'package:course_app_ui/model/category_detail.dart';
 import 'package:course_app_ui/utils/app_color.dart';
-import 'package:course_app_ui/data/mock_data.dart';
+import 'package:course_app_ui/widgets/link_icon.dart';
 import 'package:course_app_ui/widgets/tag_clipper.dart';
 import 'package:flutter/material.dart';
 
-class CourseDetailScreen extends StatelessWidget {
-  final CategoryDetail categoryDetail;  
+class CategoryDetailScreen extends StatelessWidget {
+  final CategoryDetail categoryDetail;
 
-  CourseDetailScreen({
+  CategoryDetailScreen({
     Key key,
-    this.categoryDetail,    
+    this.categoryDetail,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {    
-
-    final background = Positioned(
+_buildBackground() {
+    return Positioned(
       top: categoryDetail.image.offset.top,
       bottom: categoryDetail.image.offset.bottom,
       left: categoryDetail.image.offset.left,
       right: categoryDetail.image.offset.right,
-      child: Hero(
-        tag: categoryDetail.tag,
-        child: Image.asset(
-          categoryDetail.image.src,
-          fit: BoxFit.contain,
-        ),
+      child: Image.asset(
+        categoryDetail.image.src,
+        fit: BoxFit.contain,
       ),
     );
+  }
 
-    final appBar = AppBar(
+  _buildAppBar(BuildContext context) {
+    return AppBar(
       elevation: 0,
       backgroundColor: categoryDetail.image.backgroundColor,
       automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          InkWell(
+          LinkIcon(
+            imageSrc: 'assets/icons/arrow_left.png',
+            width: 16,
+            height: 16,
             onTap: () {
               Navigator.pop(context);
             },
-            child: Image.asset(
-              'assets/icons/arrow_left.png',
-              width: 16,
-              height: 16,
-            ),
           ),
-          InkWell(
-            child: Image.asset(
-              'assets/icons/more_vertical.png',
-              width: 16,
-              height: 16,
-            ),
-          )
+          LinkIcon(
+            imageSrc: 'assets/icons/more_vertical.png',
+            width: 16,
+            height: 16,
+            onTap: () {},
+          )          
         ],
       ),
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     final courseHeader = Container(
       padding: EdgeInsets.only(bottom: 24, top: 32),
       child: Text(
@@ -349,16 +346,19 @@ class CourseDetailScreen extends StatelessWidget {
       ),
     );
 
-    return Scaffold(
-      backgroundColor: categoryDetail.image.backgroundColor,
-      appBar: appBar,
-      body: Stack(
-        children: <Widget>[
-          background,
-          header,
-          courseContent,
-          courseFooter,
-        ],
+    return Hero(
+      tag: categoryDetail.tag,
+      child: Scaffold(
+        backgroundColor: categoryDetail.image.backgroundColor,
+        appBar: _buildAppBar(context),
+        body: Stack(
+          children: <Widget>[
+            _buildBackground(),
+            header,
+            courseContent,
+            courseFooter,
+          ],
+        ),
       ),
     );
   }

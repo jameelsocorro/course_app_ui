@@ -1,16 +1,14 @@
+import 'package:course_app_ui/screens/category_detail_screen.dart';
 import 'package:course_app_ui/utils/app_color.dart';
-import 'package:course_app_ui/screens/course_detail_screen.dart';
+
 import 'package:course_app_ui/data/mock_data.dart';
+import 'package:course_app_ui/widgets/category_card.dart';
+import 'package:course_app_ui/widgets/link_icon.dart';
 import 'package:course_app_ui/widgets/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class CategoryScreen extends StatelessWidget {
   _buildHeader() {
     return Container(
       margin: EdgeInsets.symmetric(
@@ -20,13 +18,11 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          InkWell(
+          LinkIcon(
+            imageSrc: 'assets/icons/menu.png',
+            height: 10,
+            width: 16,
             onTap: () {},
-            child: Image.asset(
-              'assets/icons/menu.png',
-              height: 10,
-              width: 16,
-            ),
           ),
           CircleAvatar(
             radius: 16,
@@ -95,8 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _buildContent() {
-    final categoryCards = SliverStaggeredGrid.countBuilder(
+  _buildCategoryCards() {
+    return SliverStaggeredGrid.countBuilder(
       mainAxisSpacing: 16,
       crossAxisCount: 2,
       crossAxisSpacing: 16,
@@ -104,84 +100,28 @@ class _HomeScreenState extends State<HomeScreen> {
       staggeredTileBuilder: (int index) =>
           StaggeredTile.extent(1, index == 1 || index == 4 ? 250 : 200),
       itemBuilder: (BuildContext context, int index) {
-        final category = categories[index];
-
-        final background = Positioned(
-          top: category.image.offset.top,
-          bottom: category.image.offset.bottom,
-          left: category.image.offset.left,
-          right: category.image.offset.right,
-          child: Hero(
-            tag: category.tag,
-            child: Image.asset(
-              category.image.src,
-              fit: BoxFit.cover,
-            ),
-          ),
-        );
-
-        final cardContent = Container(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                category.title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
-                  color: AppColor.textColor[900],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 8),
-                child: Text(
-                  '${category.totalTopics} Topics',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: AppColor.textColor[400],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-
-        return Container(
-          decoration: BoxDecoration(
-            color: category.image.backgroundColor,
-            borderRadius: BorderRadius.circular(16),
-          ),
+        return CategoryCard(
+          category: categories[index],
           margin: EdgeInsets.only(
             right: index.isOdd ? 16 : 0,
             left: index.isEven ? 16 : 0,
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CourseDetailScreen(
-                      categoryDetail: categoryDetails[category.tag],
-                    ),
-                  ),
-                );
-              },
-              child: Stack(
-                children: <Widget>[
-                  background,
-                  cardContent,
-                ],
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => CategoryDetailScreen(
+                  categoryDetail: categoryDetails[categories[index].tag],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
+  }
 
+  _buildContent(BuildContext context) {
     return Expanded(
       child: CustomScrollView(
         slivers: <Widget>[
@@ -208,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          categoryCards,
+          _buildCategoryCards(),
         ],
       ),
     );
@@ -230,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildHeader(),
-          _buildContent(),
+          _buildContent(context),
         ],
       ),
     );

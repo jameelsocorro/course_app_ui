@@ -1,5 +1,5 @@
+import 'package:course_app_ui/screens/category_screen.dart';
 import 'package:course_app_ui/utils/app_color.dart';
-import 'package:course_app_ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomeScreen(),
+      home: CategoryScreen(),
     );
   }
 }
