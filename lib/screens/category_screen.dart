@@ -106,11 +106,11 @@ class CategoryScreen extends StatelessWidget {
             right: index.isOdd ? 16 : 0,
             left: index.isEven ? 16 : 0,
           ),
-          onTap: () {
+          onTap: () {            
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => CategoryDetailScreen(
+                builder: (_) => CategoryDetailScreen(                  
                   categoryDetail: categoryDetails[categories[index].tag],
                 ),
               ),
