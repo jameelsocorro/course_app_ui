@@ -61,9 +61,10 @@ class CategoryDetailScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CourseTag(
-            label: 'BESTSELLER',
-          ),
+          if (categoryDetail.bestSeller)
+            CourseTag(
+              label: 'BESTSELLER',
+            ),
           Padding(
             padding: EdgeInsets.only(bottom: 16, top: 16),
             child: Text(
@@ -98,46 +99,48 @@ class CategoryDetailScreen extends StatelessWidget {
   }
 
   _buildCoursePanel() {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(50),
-        topLeft: Radius.circular(50),
-      ),
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.fromLTRB(16, 16, 16, 82),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 24, top: 32),
-              child: Text(
-                'Course Content',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
+    return Expanded(
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(50),
+          topLeft: Radius.circular(50),
+        ),
+        child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 78),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: 24, top: 32),
+                child: Text(
+                  'Course Content',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: categoryDetail.contents.length,
-                itemBuilder: (BuildContext builder, index) {
-                  final counter = index <= 10
-                      ? (index + 1).toString().padLeft(2, '0')
-                      : index.toString();
+              Expanded(                
+                child: ListView.builder(
+                  itemCount: categoryDetail.contents.length,
+                  itemBuilder: (BuildContext builder, index) {
+                    final counter = index <= 10
+                        ? (index + 1).toString().padLeft(2, '0')
+                        : index.toString();
 
-                  return CourseItem(
-                    counter: counter,
-                    duration: categoryDetail.contents[index].duration,
-                    title: categoryDetail.contents[index].title,
-                    iconOpacity:
-                        (categoryDetail.contents[index].done) ? 0.3 : 1,
-                  );
-                },
+                    return CourseItem(
+                      counter: counter,
+                      duration: categoryDetail.contents[index].duration,
+                      title: categoryDetail.contents[index].title,
+                      iconOpacity:
+                          (categoryDetail.contents[index].done) ? 1 : 0.3,
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -231,9 +234,7 @@ class CategoryDetailScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 _buildHeading(context),
-                Expanded(
-                  child: _buildCoursePanel(),
-                ),
+                _buildCoursePanel(),
               ],
             ),
             _buildCourseFooter(),

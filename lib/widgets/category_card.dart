@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 class CategoryCard extends StatelessWidget {
   final Category category;
   final EdgeInsets margin;
+  final int totalLectures;
   final Function onTap;
-
-  CategoryCard({
-    Key key,
+  
+  CategoryCard({    
     this.category,
     this.margin,
     this.onTap,
-  }) : super(key: key);
+    this.totalLectures
+  });
 
   _buildBackground() {
     return Positioned(
@@ -47,7 +48,7 @@ class CategoryCard extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 8),
             child: Text(
-              '${category.totalTopics} Topics',
+              '${this.totalLectures} Lectures',
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,

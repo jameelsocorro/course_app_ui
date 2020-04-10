@@ -100,18 +100,20 @@ class CategoryScreen extends StatelessWidget {
       staggeredTileBuilder: (int index) =>
           StaggeredTile.extent(1, index == 1 || index == 4 ? 250 : 200),
       itemBuilder: (BuildContext context, int index) {
+        final categoryDetail = categoryDetails[categories[index].tag];
         return CategoryCard(
           category: categories[index],
           margin: EdgeInsets.only(
             right: index.isOdd ? 16 : 0,
             left: index.isEven ? 16 : 0,
           ),
+          totalLectures: categoryDetail.contents.length,
           onTap: () {            
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (_) => CategoryDetailScreen(                  
-                  categoryDetail: categoryDetails[categories[index].tag],
+                  categoryDetail: categoryDetail,
                 ),
               ),
             );
